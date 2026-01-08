@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Pipeline Portfolio</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace; /* Monospace for raw data feel */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: all 0.5s ease;
+        }
+        #raw-data {
+            background-color: #222; /* Low contrast, messy */
+            color: #ccc;
+            font-size: 14px;
+        }
+        #cleaning {
+            background-color: #fff; /* Cleaner, more spacing */
+            color: #000;
+        }
+        #eda {
+            background-color: #e8f4fd;
+        }
+        #modeling {
+            background-color: #f9f9f9;
+        }
+        #deployment {
+            background-color: #fff;
+            font-weight: bold; /* Stronger hierarchy */
+        }
+        #projects {
+            background-color: #f0f0f0;
+            overflow-x: auto; /* Horizontal scroll */
+            white-space: nowrap;
+        }
+        .project {
+            display: inline-block;
+            width: 300px;
+            margin: 20px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .data-table {
+            font-family: monospace;
+            border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+        .missing {
+            background-color: #ffcccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="raw-data" class="section">
+        <div>
+            <h1>Raw Data: The Messy Start</h1>
+            <p>Here's a glimpse of real, imperfect data—missing values, noise, and all.</p>
+            <table class="data-table">
+                <tr><th>ID</th><th>Name</th><th>Age</th><th>Income</th></tr>
+                <tr><td>1</td><td>Alice</td><td>25</td><td>50000</td></tr>
+                <tr><td>2</td><td>Bob</td><td class="missing">?</td><td>60000</td></tr>
+                <tr><td>3</td><td>Charlie</td><td>30</td><td class="missing">?</td></tr>
+                <tr><td>4</td><td>Diana</td><td>28</td><td>55000</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="cleaning" class="section">
+        <div>
+            <h1>Data Cleaning: Building Trust</h1>
+            <p>Handling missing values, correcting inconsistencies—data must be reliable before modeling.</p>
+            <ul>
+                <li>Imputed missing ages with median (28).</li>
+                <li>Filled income gaps using regression.</li>
+                <li>Removed outliers beyond 3 SD.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="eda" class="section">
+        <div>
+            <h1>EDA: Uncovering Patterns</h1>
+            <p>Observations from exploration: Age correlates with income (r=0.7). Outliers in high-income group.</p>
+            <p>Insight: Younger users show higher churn risk.</p>
+        </div>
+    </div>
+
+    <div id="modeling" class="section">
+        <div>
+            <h1>Modeling: Hypotheses, Not Magic</h1>
+            <p>Started with logistic regression baseline (AUC=0.75). Added RF for complexity (AUC=0.82).</p>
+            <p>Error analysis: False positives in low-income segment.</p>
+        </div>
+    </div>
+
+    <div id="deployment" class="section">
+        <div>
+            <h1>Deployment: Making It Usable</h1>
+            <p>Deployed via Flask API. Dashboard in Streamlit. Monitoring with Prometheus.</p>
+            <p>Outcome: 15% reduction in churn via targeted interventions.</p>
+        </div>
+    </div>
+
+    <div id="projects" class="section">
+        <div>
+            <h1>Projects: Case Studies</h1>
+            <div class="project">
+                <h2>Stock Predictor</h2>
+                <p><strong>Problem:</strong> Predict AAPL prices.</p>
+                <p><strong>Approach:</strong> LSTM on historical data.</p>
+                <p><strong>Outcome:</strong> 85% accuracy on test set.</p>
+            </div>
+            <div class="project">
+                <h2>Sentiment Analyzer</h2>
+                <p><strong>Problem:</strong> Classify movie reviews.</p>
+                <p><strong>Approach:</strong> BERT fine-tuning.</p>
+                <p><strong>Outcome:</strong> 92% F1-score.</p>
+            </div>
+            <div class="project">
+                <h2>Churn Predictor</h2>
+                <p><strong>Problem:</strong> Forecast telecom churn.</p>
+                <p><strong>Approach:</strong> Random Forest on features.</p>
+                <p><strong>Outcome:</strong> Saved $1M in retention.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple scroll-driven animations (inspired by anime.js style)
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.classList.remove('hidden');
+                } else {
+                    entry.target.classList.add('hidden');
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => {
+            section.classList.add('hidden');
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
